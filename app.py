@@ -7,9 +7,11 @@ from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from models import db, Signature
 from config import Config
+from datetime import datetime
+
 
 # Regex to validate base64 image data
-DATA_URI_RE = re.compile(r"data:image/(png|jpeg);base64,(.*)$", re.IGNORECASE)
+DATA_URI_RE = re.compile(r"^data:image\/(png|jpeg);base64,(.+)", re.IGNORECASE)
 
 
 def create_app():
@@ -27,11 +29,16 @@ def create_app():
 
     # Create tables if not exist
     with app.app_context():
+        # db.drop_all()
         db.create_all()
 
     @app.route("/")
     def index():
         return render_template("index.html")
+
+    @app.route("/agreement")
+    def agreement():
+        return render_template("agreement.html")
 
     @app.route("/signatures")
     def signatures_page():
@@ -43,29 +50,34 @@ def create_app():
 
     @app.route("/api/signatures", methods=["POST"])
     def create_signature():
-        """Save signature without repeating name or email"""
         if not request.is_json:
             return jsonify({"error": "Expected JSON"}), 400
 
         data = request.get_json()
+
         name = (data.get("name") or "").strip()
+        phone_number = (data.get("phone_number") or "").strip()
         email = (data.get("email") or "").strip()
         signature_data = data.get("signature")
+        created_on = datetime.utcnow()
 
-        if len(name) < 1 or len(email) < 1 or not signature_data:
-            return jsonify({"error": "name, email, and signature are required"}), 400
+        if not name or not phone_number or not email or not signature_data:
+            return jsonify({"error": "name, phone_number, email, and signature are required"}), 400
 
-        # Check duplicates
         duplicate_name = Signature.query.filter_by(name=name).first()
+        duplicate_number = Signature.query.filter_by(
+            phone_number=phone_number).first()
         duplicate_email = Signature.query.filter_by(email=email).first()
 
         if duplicate_name:
             return jsonify({"error": f"Name '{name}' is already used"}), 409
 
+        if duplicate_number:
+            return jsonify({"error": f"Phone number '{phone_number}' is already used"}), 409
+
         if duplicate_email:
             return jsonify({"error": f"Email '{email}' is already used"}), 409
 
-        # Validate image format
         m = DATA_URI_RE.match(signature_data)
         if not m:
             return jsonify({"error": "Invalid image data format"}), 400
@@ -78,12 +90,10 @@ def create_app():
         except Exception:
             return jsonify({"error": "Invalid base64 data"}), 400
 
-        # Enforce file limit size
         max_bytes = app.config.get("MAX_CONTENT_LENGTH", 5 * 1024 * 1024)
         if len(binary) > max_bytes:
             return jsonify({"error": "Image exceeds max allowed size"}), 400
 
-        # Save image
         uid = uuid.uuid4().hex
         ext = "png" if img_type == "png" else "jpg"
         filename = secure_filename(f"{uid}.{ext}")
@@ -92,23 +102,16 @@ def create_app():
         with open(filepath, "wb") as f:
             f.write(binary)
 
-        # Save record
-        sig = Signature(name=name, email=email, filename=filename)
+        sig = Signature(
+            name=name,
+            phone_number=phone_number,
+            email=email,
+            filename=filename,
+            created_at=created_on
+        )
+
         db.session.add(sig)
         db.session.commit()
-
-        # Send notification email
-        try:
-            msg = Message(
-                subject="Signature Confirmation",
-                sender=app.config["MAIL_USERNAME"],
-                recipients=[email]
-            )
-            msg.body = f"Hello {name},\n\nYou have successfully signed.\n\nThank you!"
-            mail.send(msg)
-
-        except Exception as e:
-            print("Email send failed:", e)
 
         return jsonify({
             "message": "Signature saved successfully",
