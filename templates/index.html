@@ -4,81 +4,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign on Screen & View Signatures</title>
+  <title>KMC Group Policy Agreement</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    #signature-pad {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      background: #fff;
-    }
+  <link rel="icon" type="image/png" href="/static/image.png">
+  <!--<link rel="stylesheet" href="{{ url_for('static', filename='Signature-page.css') }}">-->
 
-    .controls {
-      margin-top: 12px;
-    }
-
-    canvas {
-      width: 100%;
-      height: 200px;
-      touch-action: none;
-    }
-
-    /* Position toast at bottom center for mobile-friendly view */
-    #toast-container {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1055;
-    }
-  </style>
 </head>
 
 <body class="bg-light">
-  <div class="container py-4">
-    <!-- Sign on screen section -->
-    <h1>Sign on the Screen</h1>
-    <p>Enter name and email, draw your signature, then press Save.</p>
 
-    <div class="card p-3 mb-5">
+  <div class="container">
+    <h1 class="text-decoration-underline text-center">Developing KMC Group Policy Agreement</h1>
+    <h2 class="mt-3 text-center">Slogan: Collaboration • Growth • Peace</h2>
+
+    <h3>1. Purpose of the Policy</h3>
+    <p>
+      This policy provides guidance for all members and leaders who are part of the group. It ensures discipline, unity,
+      accountability, responsibility, and a respectful environment where every member can grow, learn, and support one
+      another.
+    </p>
+
+    <h3>2. Nature of the Youth Group</h3>
+    <ul>
+      <li>This is an independent group created for growth, support, mentorship, and positive development</li>
+      <li>The group is not directly run by the church, but may participate in church activities only when officially
+        invited or assigned.</li>
+      <li>All activities, meetings, and decisions are made within the group leadership.</li>
+    </ul>
+
+    <h3>3. Membership Requirements</h3>
+    <ul>
+      <li>Must be willing to work together with others as a team.</li>
+      <li>Must follow all guidelines in this policy.</li>
+      <li>Must show respect towards members and leaders.</li>
+      <li>Must commit to positive behaviour inside and outside group activities.</li>
+      <li>Must participate actively in programs, meetings, and events.</li>
+      <li>Must be willing to pay for the registration fee</li>
+    </ul>
+
+    <h3>4. Discipline Guidelines</h3>
+    <ul>
+      <li>No violence, disrespect, bullying, or abusive behaviour.</li>
+      <li>Members must handle disagreements respectfully.</li>
+      <li>No gossip or causing division.</li>
+      <li>Romantic relationships must not affect unity, respect, or activities.</li>
+      <li>Alcohol, drugs, and reckless behaviour are not allowed during any group-related activity.</li>
+      <li>Discipline issues will be handled privately by group leaders through dialogue and correction.</li>
+    </ul>
+
+    <h3>5. Attendance</h3>
+    <ul>
+      <li>Members should attend group meetings, activities, and events consistently.</li>
+      <li>Missing more than 3 meetings in a row without informing a leader will lead to follow-up.</li>
+      <li>Members must arrive on time for activities unless they have a valid reason.</li>
+      <li>Participation in committees, teams, or special roles requires extra commitment.</li>
+    </ul>
+
+    <h3>6. Communication Rules</h3>
+    <ul>
+      <li>Communication must be respectful at all times.</li>
+      <li>Official announcements will be shared through the group`s official platforms (WhatsApp, meetings, etc).
+      <li>Members must inform a leader early if they cannot attend a planned activity.</li>
+      <li>No sharing group conflicts or private issues outside the group.</li>
+    </ul>
+
+    <h3>7. Behaviour Standards</h3>
+    <ul>
+      <li>All members should behave responsibly and maturely during any group activity.</li>
+      <li>Dressing should be decent and appropriate for the activity taking place.</li>
+      <li>Members should avoid unnecessary noise, disruptions, or negative behaviour during meetings.</li>
+      <li>Conflicts should be resolved respectfully, preferably with a leader present.</li>
+      <li>Members must treat every person with dignity, regardless of background.</li>
+    </ul>
+
+    <h3>8. Responsibilities of Members</h3>
+    <ul>
+      <li>Attend meetings and participate fully in activities</li>
+      <li>Support one another and maintain unity.</li>
+      <li>Respect all leaders and fellow members.</li>
+      <li>Follow instructions and contribute positively to the group.</li>
+      <li>Represent the group well both inside and outside official activities.</li>
+      <li>Keep group spaces clean, organized and safe.</li>
+    </ul>
+
+    <h3>9. Responsibilities of group Leaders</h3>
+    <ul>
+      <li>Lead with respect, maturity, and fairness.</li>
+      <li>Plan, organize, and communicate activities clearly.</li>
+      <li>Provide support, guidance, and mentorship to members.</li>
+      <li>Solve conflicts fairly and confidentially.</li>
+      <li>Ensure the group remains safe, disciplined, and productive.</li>
+      <li>Make decisions that benefit the whole group.</li>
+      <li>Maintain transparency and accountability.</li>
+    </ul>
+
+    <h3>10. Interaction With the Church</h3>
+    <ul>
+      <li>The group may participate in church programs only when officially requested or approved.</li>
+      <li>Members should maintain respect when representing the group in any church-related setting.</li>
+      <li>All church-related participation will be organized through group leaders.</li>
+    </ul>
+
+    <h3>1.1 Policy Enforcement</h3>
+    <p>
+      All members must follow this policy. Violations may lead to counselling, warnings, suspension from activities, or
+      other actions decided by leaders. The goal of discipline is learning, correction, and restoration.
+    </p>
+
+    <h3>1.2 Declaration</h3>
+    <p>
+      Being part of the youth group means you agree to respect this policy, support group goals, and contribute
+      positively to the team.
+    </p>
+  </div>
+
+  <h3 class="text-center mt-5">Member Agreement & Signature Section</h3>
+  <div class="p-4 mb-5 container">
+    <h4 class="mb-4 text-center">Member Registration Form</h4>
+    <form id="memberForm">
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input id="name" class="form-control" placeholder="Your full name">
+        <label class="form-label">Full Name</label>
+        <input id="name" class="form-control" placeholder="Your full name" type="text" required>
       </div>
-
+      <div class="mb-3">
+        <label class="form-label">Phone Number</label>
+        <input id="phone_number" class="form-control" placeholder="e.g 0712345678" type="tel" required>
+      </div>
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input id="email" class="form-control" placeholder="you@example.com" type="email">
+        <input id="email" class="form-control" placeholder="you@example.com" type="email" required>
       </div>
 
-      <div id="signature-pad" class="mb-2">
-        <canvas id="canvas" width="600" height="200"></canvas>
+      <fieldset class="mb-3" disabled>
+        <label class="form-label">Leader Name</label>
+        <input type="text" class="form-control" value="VIYL OGWADA" placeholder="-">
+      </fieldset>
+
+      <fieldset class="mb-4" disabled>
+        <label class="form-label">Leader Signature</label>
+        <div class="border rounded p-2 text-center bg-light">
+          <img src="/static/images/leader-signature.jpg" alt="Leader Signature" style="max-width:70px;">
+        </div>
+      </fieldset>
+
+      <p class="fw-semibold mb-1">Member Signature</p>
+      <div id="signature-pad" class="signature-wrapper border rounded mb-3 bg-light text-center">
+        <canvas id="canvas"></canvas>
       </div>
 
-      <div class="controls d-flex gap-2 align-items-center">
-        <button id="clearBtn" class="btn btn-outline-secondary">Clear</button>
-        <button id="saveBtn" class="btn btn-primary">Save Signature</button>
-        <span id="signature-count" class="ms-3 fw-bold">Total signatures: 0</span>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+        <label class="form-check-label" for="agreeTerms">
+          I have read and agreed to the
+          <a href="/agreement" class="text-primary">User Agreement</a>
+        </label>
       </div>
 
+      <div class="controls d-flex gap-2 align-items-center mb-3">
+        <button id="clearBtn" type="button" class="btn btn-outline-secondary">Clear</button>
+        <button id="saveBtn" type="button" class="btn btn-primary">Save Signature</button>
+      </div>
       <div id="status" class="mt-3"></div>
-    </div>
+    </form>
+  </div>
+  </div>
 
-    <!-- Password-protected signature table -->
-    <h1>Saved Signatures</h1>
+  <div class="container my-4">
+    <h1 class="mb-3 text-center">Saved Signatures</h1>
+    <span id="signature-count" class="d-block mb-2 text-muted">Total Signatures: 0</span>
+
     <div id="password-section" class="mb-3">
       <input type="password" id="password-input" class="form-control mb-2"
         placeholder="Enter password to view signatures">
       <button type="submit" id="submit-password" class="btn btn-primary">Submit</button>
     </div>
 
-    <div id="signature-table-section" style="display:none;">
-      <table class="table table-bordered mt-3">
-        <thead>
+    <div id="signature-table-section" class="table-responsive">
+      <table class="table table-bordered table-striped table-hover small mb-0">
+        <thead class="table-dark">
           <tr>
             <th>Name</th>
+            <th>Phone Number</th>
             <th>Email</th>
             <th>Signature</th>
+            <th>Signed On</th>
           </tr>
         </thead>
         <tbody id="signature-list"></tbody>
@@ -86,147 +195,11 @@
     </div>
   </div>
 
-  <!-- Toast container -->
   <div id="toast-container"></div>
 
-  <!-- JS Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/signature.js"></script>
-
-  <script>
-    const saveBtn = document.getElementById("saveBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const canvas = document.getElementById("canvas");
-    const signaturePad = new SignaturePad(canvas);
-    const statusDiv = document.getElementById("status");
-    const signatureCountSpan = document.getElementById("signature-count");
-    const signatureList = document.getElementById("signature-list");
-    const submitBtn = document.getElementById("submit-password");
-    const toastContainer = document.getElementById("toast-container");
-
-    // Clear signature
-    clearBtn.addEventListener("click", () => {
-      signaturePad.clear();
-    });
-
-    // Update signature count
-    function updateSignatureCount() {
-      fetch('/api/signatures')
-        .then(res => res.json())
-        .then(signatures => {
-          signatureCountSpan.textContent = `Total signatures: ${signatures.length}`;
-        });
-    }
-
-    updateSignatureCount(); // Initial load
-
-    // Show toast notification
-    function showToast(message) {
-      const toastEl = document.createElement("div");
-      toastEl.className = "toast align-items-center text-bg-success border-0";
-      toastEl.setAttribute("role", "alert");
-      toastEl.setAttribute("aria-live", "assertive");
-      toastEl.setAttribute("aria-atomic", "true");
-
-      toastEl.innerHTML = `
-        <div class="d-flex">
-          <div class="toast-body">
-            ${message}
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-      `;
-      toastContainer.appendChild(toastEl);
-      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-      toast.show();
-
-      // Remove toast from DOM after hidden
-      toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
-    }
-
-    // Save signature
-    saveBtn.addEventListener("click", () => {
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-
-      if (!name || !email || signaturePad.isEmpty()) {
-        alert("Name, email, and signature are required!");
-        return;
-      }
-
-      const signatureData = signaturePad.toDataURL("image/png");
-
-      fetch('/api/signatures', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, signature: signatureData })
-      })
-
-        .then(async res => {
-          const data = await res.json();
-
-          // User tried to sign again -> DO NOT REFRESH TABLE
-          if (res.status === 409) {
-            alert("Name or Email already exists!");
-            showToast("Duplicate! Cannot sign again.");
-            return;
-          }
-
-          if (!res.ok) {
-            alert(data.error || "Failed to save!");
-            return;
-          }
-
-          // Success case only
-          statusDiv.textContent = "Signature saved!";
-          signaturePad.clear();
-          updateSignatureCount();
-          showToast(`Success! ${email} has signed.`);
-
-          // Only refresh table if user is currently viewing it
-          if (document.getElementById("signature-table-section").style.display === "block") {
-            loadSignatures();
-          }
-        })
-
-
-        .catch(err => {
-          console.error(err);
-          alert("Error saving signature");
-        });
-    });
-
-    // Load signatures table
-    function loadSignatures() {
-      fetch('/api/signatures')
-        .then(res => res.json())
-        .then(signatures => {
-          signatureList.innerHTML = '';
-          signatures.forEach(sig => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td>${sig.name}</td>
-              <td>${sig.email}</td>
-              <td><img src="/uploads/${sig.filename}" width="200"></td>
-            `;
-            signatureList.appendChild(tr);
-          });
-        });
-    }
-
-    // Password protection
-    submitBtn.addEventListener("click", () => {
-      const password = document.getElementById("password-input").value;
-      if (password === "dangote001") {
-        document.getElementById("password-section").style.display = "none";
-        document.getElementById("signature-table-section").style.display = "block";
-        loadSignatures();
-      } else {
-        alert("Incorrect password!");
-      }
-    });
-  </script>
+  <script src="static/signature.js"></script>
 </body>
 
 </html>
