@@ -25,7 +25,7 @@ def create_app():
         db.drop_all()
         db.create_all()  # ensure DB is created
 
-    # ----- Routes -----
+    
     @app.route("/")
     def index():
         return render_template("index.html")
